@@ -1,3 +1,6 @@
+<?php
+include("db.php");
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -86,19 +89,28 @@
       </button>
     </div>
     <footer>
-      <h1 class="heading2">Оставьте отзыв о нашем сыре</h1>
-      <div>
-        <input class="NameInput" placeholder="Фамилия и имя">
-    </div>
-    <div>
-        <textarea name="" id="" cols="30" rows="10" class="FeedbackTextarea" placeholder="Напишите отзыв"></textarea>
-        <div class="counter">
-          <span class="current">0</span>&nbsp;/
-          <span class="total">1000</span>
-        </div>
-        <button class="SendButton"><p class="pSend">Отправить</p></button>
-    </div>
-    <h2 class="citata">«Сыр — это больше, чем просто еда. Это искусство вкуса!»</h2>
+       <div class="comment">
+        <h1 class="heading2">Оставьте отзыв о нашем сыре</h1>
+      <form action="comments.php" method="POST" class="form">
+        <input type="text" class="NameInput" name="name" placeholder="ФИО" required><br><br>
+        <textarea name="comment" class="FeedbackTextarea"  placeholder="Комментарий" rows="5" required></textarea><br><br>
+        <input type="submit" class="SendButton" name="btn"  value="Отправить комментарий">
+      </form>
+        <div class="comments">
+        <?php 
+        $valid = $db->prepare("SELECT * FROM comment");
+        $valid->execute();
+        $rows = $valid->fetchAll(PDO::FETCH_ASSOC);?>
+        <?php foreach ($rows as $row): ?>
+            <div class="fio">
+              <div class="name"><?php echo ($row['name']); ?></div>
+              <div class="text"><?php echo ($row['comment']); ?></div>
+              <hr>
+            </div>
+          <?php endforeach; ?>
+      </div>
+      </div>    
+      <h2 class="citata">«Сыр — это больше, чем просто еда. Это искусство вкуса!»</h2>
     <div><img class="logo" src="/images/logo.png"></div>
     </footer>
   </body>
