@@ -103,7 +103,7 @@ include("db.php");
         $rows = $valid->fetchAll(PDO::FETCH_ASSOC);?>
         <?php foreach ($rows as $row): ?>
             <div class="fio">
-              <div class="name"><?php echo ($row['name']); ?></div>
+              <div class="name2"><?php echo ($row['name']); ?></div>
               <div class="text"><?php echo ($row['comment']); ?></div>
               <hr>
             </div>
